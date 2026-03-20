@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <cmath>
 
-#include "modelsolver01-06.h"
+#include "modelsolver01.h"
 
 FittingParameterChart::FittingParameterChart(QTableWidget *parentTable, QObject *parent)
     : QObject(parent), m_table(parentTable), m_modelManager(nullptr)
@@ -187,7 +187,7 @@ QStringList FittingParameterChart::getDefaultFitKeys(ModelManager::ModelType typ
     int t = static_cast<int>(type);
 
     // 判断是否为均质模型 (Group1 的 7-12)
-    bool isHomogeneous = (t >= (int)ModelSolver01_06::Model_7 && t <= (int)ModelSolver01_06::Model_12);
+    bool isHomogeneous = (t >= (int)ModelSolver01::Model_7 && t <= (int)ModelSolver01::Model_12);
 
     if (!isHomogeneous) {
         keys << "omega1" << "omega2" << "lambda1" << "lambda2";
@@ -263,7 +263,7 @@ QList<FitParameter> FittingParameterChart::generateDefaultParams(ModelManager::M
     }
 
     // 4. 双重介质参数 (1-6)
-    bool isHomogeneous = (t >= (int)ModelSolver01_06::Model_7 && t <= (int)ModelSolver01_06::Model_12);
+    bool isHomogeneous = (t >= (int)ModelSolver01::Model_7 && t <= (int)ModelSolver01::Model_12);
     if (!isHomogeneous) {
         addParam("omega1", 0.4, true);
         addParam("omega2", 0.08, true);

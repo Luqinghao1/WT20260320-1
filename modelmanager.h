@@ -18,8 +18,8 @@
 #include "wt_modelwidget.h"
 
 // 前向声明求解器类
-class ModelSolver01_06;
-class ModelSolver19_36;
+class ModelSolver01;
+class ModelSolver02;
 
 // 定义曲线数据类型
 using ModelCurveData = std::tuple<QVector<double>, QVector<double>, QVector<double>>;
@@ -123,8 +123,8 @@ private:
     // 懒加载获取 UI 控件
     WT_ModelWidget* ensureWidget(ModelType type);
     // 懒加载获取求解器
-    ModelSolver01_06* ensureSolverGroup1(int index); // index 0-35
-    ModelSolver19_36* ensureSolverGroup2(int index); // index 0-35
+    ModelSolver01* ensureSolverGroup1(int index); // index 0-35
+    ModelSolver02* ensureSolverGroup2(int index); // index 0-35
 
 private:
     QWidget* m_mainWidget;
@@ -134,8 +134,8 @@ private:
     QVector<WT_ModelWidget*> m_modelWidgets;
 
     // 求解器组
-    QVector<ModelSolver01_06*> m_solversGroup1; // 对应 Model 1-36
-    QVector<ModelSolver19_36*> m_solversGroup2; // 对应 Model 37-72
+    QVector<ModelSolver01*> m_solversGroup1; // 对应 Model 1-36
+    QVector<ModelSolver02*> m_solversGroup2; // 对应 Model 37-72
 
     ModelType m_currentModelType;
 

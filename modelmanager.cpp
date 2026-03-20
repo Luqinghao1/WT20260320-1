@@ -11,8 +11,8 @@
 #include "modelselect.h"
 #include "modelparameter.h"
 #include "wt_modelwidget.h"
-#include "modelsolver01-06.h"
-#include "modelsolver19_36.h"
+#include "modelsolver01.h"
+#include "modelsolver02.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -99,21 +99,21 @@ WT_ModelWidget* ModelManager::ensureWidget(ModelType type)
 }
 
 // 懒加载 Solver1
-ModelSolver01_06* ModelManager::ensureSolverGroup1(int index)
+ModelSolver01* ModelManager::ensureSolverGroup1(int index)
 {
     if (index < 0 || index >= m_solversGroup1.size()) return nullptr;
     if (m_solversGroup1[index] == nullptr) {
-        m_solversGroup1[index] = new ModelSolver01_06((ModelSolver01_06::ModelType)index);
+        m_solversGroup1[index] = new ModelSolver01((ModelSolver01::ModelType)index);
     }
     return m_solversGroup1[index];
 }
 
 // 懒加载 Solver2
-ModelSolver19_36* ModelManager::ensureSolverGroup2(int index)
+ModelSolver02* ModelManager::ensureSolverGroup2(int index)
 {
     if (index < 0 || index >= m_solversGroup2.size()) return nullptr;
     if (m_solversGroup2[index] == nullptr) {
-        m_solversGroup2[index] = new ModelSolver19_36((ModelSolver19_36::ModelType)index);
+        m_solversGroup2[index] = new ModelSolver02((ModelSolver02::ModelType)index);
     }
     return m_solversGroup2[index];
 }
@@ -139,12 +139,12 @@ ModelCurveData ModelManager::calculateTheoreticalCurve(ModelType type,
     int id = (int)type;
     // [调度] 0-35 分发给 Solver1 (夹层/径向)
     if (id >= 0 && id <= 35) {
-        ModelSolver01_06* solver = ensureSolverGroup1(id);
+        ModelSolver01* solver = ensureSolverGroup1(id);
         if (solver) return solver->calculateTheoreticalCurve(params, providedTime);
     }
     // [调度] 36-71 分发给 Solver2 (页岩)
     else if (id >= 36 && id <= 71) {
-        ModelSolver19_36* solver = ensureSolverGroup2(id - 36);
+        ModelSolver02* solver = ensureSolverGroup2(id - 36);
         if (solver) return solver->calculateTheoreticalCurve(params, providedTime);
     }
     return ModelCurveData();
@@ -154,10 +154,10 @@ QString ModelManager::getModelTypeName(ModelType type)
 {
     int id = (int)type;
     if (id >= 0 && id <= 35) {
-        return ModelSolver01_06::getModelName((ModelSolver01_06::ModelType)id);
+        return ModelSolver01::getModelName((ModelSolver01::ModelType)id);
     }
     else if (id >= 36 && id <= 71) {
-        return ModelSolver19_36::getModelName((ModelSolver19_36::ModelType)(id - 36));
+        return ModelSolver02::getModelName((ModelSolver02::ModelType)(id - 36));
     }
     return "未知模型";
 }
@@ -281,8 +281,8 @@ QMap<QString, double> ModelManager::getDefaultParameters(ModelType type)
 // --- 以下为缓存和工具函数，保持原样 ---
 void ModelManager::setHighPrecision(bool high) {
     for(WT_ModelWidget* w : m_modelWidgets) if(w) w->setHighPrecision(high);
-    for(ModelSolver01_06* s : m_solversGroup1) if(s) s->setHighPrecision(high);
-    for(ModelSolver19_36* s : m_solversGroup2) if(s) s->setHighPrecision(high);
+    for(ModelSolver01* s : m_solversGroup1) if(s) s->setHighPrecision(high);
+    for(ModelSolver02* s : m_solversGroup2) if(s) s->setHighPrecision(high);
 }
 
 void ModelManager::updateAllModelsBasicParameters() {
@@ -305,5 +305,5 @@ void ModelManager::onWidgetCalculationCompleted(const QString &t, const QMap<QSt
     emit calculationCompleted(t, r);
 }
 QVector<double> ModelManager::generateLogTimeSteps(int count, double startExp, double endExp) {
-    return ModelSolver01_06::generateLogTimeSteps(count, startExp, endExp);
+    return ModelSolver01::generateLogTimeSteps(count, startExp, endExp);
 }
