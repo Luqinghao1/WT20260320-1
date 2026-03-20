@@ -86,8 +86,8 @@ HEADERS += \
            modelmanager.h \
            modelparameter.h \
            modelselect.h \
-           modelsolver01-06.h \
-           modelsolver19_36.h \
+           modelsolver01.h \
+           modelsolver02.h \
            mousezoom.h \
            multidatafittingpage.h \
            newprojectdialog.h \
@@ -176,8 +176,8 @@ SOURCES += \
            modelmanager.cpp \
            modelparameter.cpp \
            modelselect.cpp \
-           modelsolver01-06.cpp \
-           modelsolver19_36.cpp \
+           modelsolver01.cpp \
+           modelsolver02.cpp \
            mousezoom.cpp \
            multidatafittingpage.cpp \
            newprojectdialog.cpp \

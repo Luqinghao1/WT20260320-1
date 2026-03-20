@@ -21,7 +21,7 @@
 #include "paramselectdialog.h"
 #include "fittingreport.h"
 #include "fittingchart.h"
-#include "modelsolver01-06.h"
+#include "modelsolver01.h"
 
 #include <QMessageBox>
 #include <QDebug>

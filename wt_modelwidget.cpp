@@ -34,10 +34,10 @@ WT_ModelWidget::WT_ModelWidget(ModelType type, QWidget *parent)
     ui->setupUi(this);
 
     if (m_type >= 0 && m_type <= 35) {
-        m_solver1 = new ModelSolver01_06((ModelSolver01_06::ModelType)m_type);
+        m_solver1 = new ModelSolver01((ModelSolver01::ModelType)m_type);
     }
     else if (m_type >= 36 && m_type <= 71) {
-        m_solver2 = new ModelSolver19_36((ModelSolver19_36::ModelType)(m_type - 36));
+        m_solver2 = new ModelSolver02((ModelSolver02::ModelType)(m_type - 36));
     }
 
     m_colorList = { Qt::red, Qt::blue, QColor(0,180,0), Qt::magenta, QColor(255,140,0), Qt::cyan };
@@ -63,8 +63,8 @@ WT_ModelWidget::~WT_ModelWidget()
 }
 
 QString WT_ModelWidget::getModelName() const {
-    if (m_solver1) return ModelSolver01_06::getModelName((ModelSolver01_06::ModelType)m_type, false);
-    if (m_solver2) return ModelSolver19_36::getModelName((ModelSolver19_36::ModelType)(m_type - 36), false);
+    if (m_solver1) return ModelSolver01::getModelName((ModelSolver01::ModelType)m_type, false);
+    if (m_solver2) return ModelSolver02::getModelName((ModelSolver02::ModelType)(m_type - 36), false);
     return "未知模型";
 }
 

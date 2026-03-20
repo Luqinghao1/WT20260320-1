@@ -16,8 +16,8 @@
 #include <QColor>
 #include <tuple>
 #include "chartwidget.h"
-#include "modelsolver01-06.h"
-#include "modelsolver19_36.h" // [新增]
+#include "modelsolver01.h"
+#include "modelsolver02.h" // [新增]
 
 namespace Ui {
 class WT_ModelWidget;
@@ -79,9 +79,9 @@ private:
 
     // [修改] 持有两个求解器指针，根据 m_type 决定实例化哪一个
     // m_solver1 处理 Model 1-18
-    ModelSolver01_06* m_solver1;
+    ModelSolver01* m_solver1;
     // m_solver2 处理 Model 19-36
-    ModelSolver19_36* m_solver2;
+    ModelSolver02* m_solver2;
 
     bool m_highPrecision;
     QList<QColor> m_colorList;
